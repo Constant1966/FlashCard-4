@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddCardActivity">
+
+    <EditText
+        android:id="@+id/question"
+        android:layout_width="387dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
+        android:hint="Enter the question Here"
+        android:inputType="textMultiLine" />
+
+
+    <EditText
+        android:id="@+id/answer"
+        android:layout_width="387dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="150dp"
+        android:hint="Enter the answer Here"
+        android:inputType="textMultiLine" />
+
+    <ImageButton
+        android:id="@+id/cross_sign"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_marginStart="300dp"
+        android:layout_marginTop="640dp"
+        android:background="#00FFFFFF"
+        android:src="@drawable/iconmonstr_x_mark_11" />
+
+    <ImageButton
+        android:id="@+id/save_button"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="640dp"
+        android:src="@drawable/save"
+        android:background="#00FFFFFF"/>
+
+</RelativeLayout>
