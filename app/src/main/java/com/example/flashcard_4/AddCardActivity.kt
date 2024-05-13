@@ -1,14 +1,13 @@
 package com.example.flashcard_4
 
-
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.EditText
 import android.widget.ImageView
-import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
 
 class AddCardActivity : AppCompatActivity() {
@@ -16,42 +15,51 @@ class AddCardActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_card)
-        val editTextField = findViewById<EditText>(R.id.question)
-        val editTextField1 = findViewById<EditText>(R.id.answer)
-        val ShowingAnswers = findViewById<ImageView>(R.id.cross_sign)
-        val answers = findViewById<ImageView>(R.id.save_button)
+        val editTextField =findViewById<EditText>(R.id.editTextField)
+        val editTextField1 =findViewById<EditText>(R.id.editTextField1)
+        val editTextField2 =findViewById<EditText>(R.id.editTextField2)
+        val editTextField3 =findViewById<EditText>(R.id.editTextField3)
+        val ShowingAnswers = findViewById<ImageView>(R.id.icone_X)
+        val SaveAnswers = findViewById<ImageView>(R.id.icone_save)
 
         ShowingAnswers.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
-            overridePendingTransition(R.anim.left_out, R.anim.right_in)
-
             startActivity(intent)
-
         }
 
-        answers.setOnClickListener {
+        val question = intent.getStringExtra("question")
+        val answer = intent.getStringExtra("answer")
+        val wrongAnswer1 = intent.getStringExtra("wrongAnswer1")
+        val wrongAnswer2 = intent.getStringExtra("wrongAnswer2")
+
+        // Mettre à jour les EditText avec les données existantes
+        editTextField.setText(question)
+        editTextField1.setText(answer)
+        editTextField2.setText(wrongAnswer1)
+        editTextField3.setText(wrongAnswer2)
+
+
+        SaveAnswers.setOnClickListener {
             val question = editTextField.text.toString()
             val answer = editTextField1.text.toString()
+            val wrongAnswer1 = editTextField2.text.toString()
+            val wrongAnswer2 = editTextField3.text.toString()
 
-            if (question.isNotEmpty() && answer.isNotEmpty()) {
-                val intent = Intent()
-                intent.putExtra("question", question)
-                intent.putExtra("answer", answer)
-                setResult(Activity.RESULT_OK, intent)
-                finish()
+
+            if (question.isBlank() || answer.isBlank() || wrongAnswer1.isBlank() || wrongAnswer2.isBlank()) {
+                // Afficher un message d'erreur avec Snackbar si l'un des champs est vide
+                Snackbar.make(findViewById(R.id.icone_save), "Veuillez remplir tous les champs", Snackbar.LENGTH_SHORT).show()
             } else {
-                Snackbar.make(
-                    findViewById<TextView>(R.id.flashcard_question),
-                    "Please enter both a question and an answer.",
-                    Snackbar.LENGTH_SHORT
-                ).show()
+                // Les champs sont remplis, continuer avec la sauvegarde des données
+                Snackbar.make(findViewById(R.id.icone_save), "Card succesful Created", Snackbar.LENGTH_SHORT).show()
+                val data = Intent()
+                data.putExtra("question", question)
+                data.putExtra("answer", answer)
+                data.putExtra("wrongAnswer1", wrongAnswer1)
+                data.putExtra("wrongAnswer2", wrongAnswer2)
+                setResult(Activity.RESULT_OK, data)
+                finish()
             }
         }
-
-
-
-
-
-
     }
 }
